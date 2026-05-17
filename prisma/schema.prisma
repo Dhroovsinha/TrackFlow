@@ -1,0 +1,256 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  password      String
+  role          String    @default("EMPLOYEE")
+  avatarUrl     String?
+  departmentId  String
+  managerId     String?
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  department    Department @relation(fields: [departmentId], references: [id])
+  manager       User?      @relation("ManagerReports", fields: [managerId], references: [id])
+  reports       User[]     @relation("ManagerReports")
+
+  goalSheets       GoalSheet[]
+  goals            Goal[]
+  approvalActions  ApprovalHistory[] @relation("Reviewer")
+  comments         Comment[]
+  auditLogs        AuditLog[]
+  sharedGoalsCreated SharedGoal[] @relation("SharedGoalCreator")
+
+  accounts      Account[]
+  sessions      Session[]
+
+  @@index([departmentId])
+  @@index([managerId])
+  @@index([role])
+  @@index([email])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Department {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  code      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users User[]
+}
+
+model QuarterlyCycle {
+  id        String   @id @default(cuid())
+  name      String
+  year      Int
+  startDate DateTime
+  endDate   DateTime
+  isActive  Boolean  @default(false)
+  phase     String   @default("GOAL_SETTING")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  goalSheets       GoalSheet[]
+  quarterlyUpdates QuarterlyUpdate[]
+
+  @@unique([name, year])
+}
+
+model GoalSheet {
+  id          String    @id @default(cuid())
+  userId      String
+  cycleId     String
+  status      String    @default("DRAFT")
+  submittedAt DateTime?
+  approvedAt  DateTime?
+  rejectedAt  DateTime?
+  returnedAt  DateTime?
+  comments    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user  User          @relation(fields: [userId], references: [id])
+  cycle QuarterlyCycle @relation(fields: [cycleId], references: [id])
+  goals Goal[]
+
+  @@unique([userId, cycleId])
+  @@index([userId])
+  @@index([cycleId])
+  @@index([status])
+}
+
+model Goal {
+  id           String   @id @default(cuid())
+  sheetId      String
+  userId       String
+  sharedGoalId String?
+  thrustArea   String
+  title        String
+  description  String
+  uom          String
+  target       Float
+  weightage    Float
+  status       String   @default("NOT_STARTED")
+  isLocked     Boolean  @default(false)
+  deadline     DateTime?
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  sheet      GoalSheet    @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  user       User         @relation(fields: [userId], references: [id])
+  sharedGoal SharedGoal?  @relation(fields: [sharedGoalId], references: [id])
+
+  quarterlyUpdates QuarterlyUpdate[]
+  approvalHistory  ApprovalHistory[]
+  comments         Comment[]
+
+  @@index([sheetId])
+  @@index([userId])
+  @@index([sharedGoalId])
+  @@index([status])
+}
+
+model SharedGoal {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  uom         String
+  target      Float
+  thrustArea  String
+  createdById String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  createdBy User   @relation("SharedGoalCreator", fields: [createdById], references: [id])
+  goals     Goal[]
+
+  @@index([createdById])
+}
+
+model QuarterlyUpdate {
+  id          String    @id @default(cuid())
+  goalId      String
+  cycleId     String
+  quarter     String
+  achievement Float     @default(0)
+  status      String    @default("NOT_STARTED")
+  progress    Float     @default(0)
+  notes       String?
+  submittedAt DateTime?
+  reviewedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  goal  Goal          @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  cycle QuarterlyCycle @relation(fields: [cycleId], references: [id])
+
+  @@unique([goalId, cycleId, quarter])
+  @@index([goalId])
+  @@index([cycleId])
+  @@index([quarter])
+}
+
+model ApprovalHistory {
+  id             String   @id @default(cuid())
+  goalId         String?
+  reviewerId     String
+  action         String
+  comments       String?
+  previousValues String?
+  newValues      String?
+  createdAt      DateTime @default(now())
+
+  goal     Goal? @relation(fields: [goalId], references: [id], onDelete: SetNull)
+  reviewer User  @relation("Reviewer", fields: [reviewerId], references: [id])
+
+  @@index([goalId])
+  @@index([reviewerId])
+  @@index([action])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  goalId    String
+  userId    String
+  content   String
+  type      String   @default("NOTE")
+  quarter   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  goal Goal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([goalId])
+  @@index([userId])
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String
+  entityType  String
+  entityId    String
+  action      String
+  beforeValue String?
+  afterValue  String?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([entityType])
+  @@index([entityId])
+  @@index([action])
+  @@index([createdAt])
+}
