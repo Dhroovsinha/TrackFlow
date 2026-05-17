@@ -6,6 +6,8 @@
 
 Built for organizations where employees create goals, managers approve them, and admins oversee governance.
 
+📚 **[View Architecture & System Design Documentation](./docs/ARCHITECTURE.md)**
+
 </div>
 
 ---
