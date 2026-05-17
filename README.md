@@ -19,7 +19,10 @@ npm install
 # 2. Setup database & seed demo data
 npm run setup
 
-# 3. Start development server
+# 3. Run tests (optional)
+npm run test
+
+# 4. Start development server
 npm run dev
 ```
 
@@ -127,9 +130,14 @@ npm run setup         # Full setup (generate + push + seed)
 Copy `.env.example` to `.env` and configure:
 
 ```env
-DATABASE_URL="file:./dev.db"        # SQLite for dev
-AUTH_SECRET="your-secret-key"
-NEXTAUTH_URL="http://localhost:3000"
+# Database - PostgreSQL via Supabase (Connection Pooling for Vercel)
+DATABASE_URL="postgresql://user:password@host:6543/db?pgbouncer=true"
+
+# Direct connection for Prisma migrations
+DIRECT_URL="postgresql://user:password@host:5432/db"
+
+AUTH_SECRET="your-secret-key-generate-with-openssl-rand-base64-32"
+NEXTAUTH_URL="http://localhost:3000" # Update for production
 ```
 
 ##  Demo Data
@@ -156,11 +164,32 @@ Fully responsive across desktop, tablet, and mobile devices. Collapsible sidebar
 
 ## Security
 
-- Password hashing with bcrypt
-- JWT-based session management
-- RBAC enforced at API and frontend levels
-- Input validation with Zod schemas
-- Protected API routes with auth checks
+- **Password Hashing**: Secure bcrypt hashing for all credentials.
+- **Session Security**: JWT-based session management (`next-auth`) with typed boundaries.
+- **Strict RBAC Enforcement**:
+  - Employee: Isolated to self-authored goals.
+  - Manager: Team-scoped visibility and approval capabilities.
+  - Admin: Full organizational analytics.
+- **Database Safety**: 
+  - Prevents Insecure Direct Object Reference (IDOR) at the API query level.
+  - Transactions (`$transaction`) guarantee ACID compliance for workflows.
+- **Input Validation**: Zero-trust API validation using strict `Zod` schemas.
+
+## 🧪 Testing Infrastructure
+
+The application includes an automated CI/CD-ready testing suite:
+
+- **Unit Testing (`Vitest`)**: Comprehensive validation of the algorithmic Progress Engine and Zod Schemas.
+- **End-to-End Testing (`Playwright`)**: Simulates the authentication workflow, verifies RBAC UI protections, and tests routing.
+
+```bash
+# Run Unit & Integration Tests
+npm run test
+
+# Run E2E Tests
+npx playwright install
+npm run test:e2e
+```
 
 ---
 
