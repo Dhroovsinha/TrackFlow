@@ -15,7 +15,10 @@ export default function DashboardPage() {
     queryKey: ["dashboard", role],
     queryFn: async () => {
       const res = await fetch("/api/dashboard");
-      if (!res.ok) throw new Error("Failed to fetch dashboard");
+      if (!res.ok) {
+        const errJson = await res.json().catch(() => ({}));
+        throw new Error(errJson.error || "Failed to fetch dashboard");
+      }
       return res.json();
     },
     enabled: !!session,
@@ -44,9 +47,9 @@ export default function DashboardPage() {
   if (error) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-center">
-          <p className="text-lg font-medium text-destructive">Failed to load dashboard</p>
-          <p className="text-sm text-muted-foreground mt-1">Please try refreshing the page</p>
+        <div className="text-center bg-card/50 border border-border/50 rounded-2xl p-6 max-w-sm">
+          <p className="text-lg font-semibold text-destructive">Failed to load dashboard</p>
+          <p className="text-sm text-muted-foreground mt-2">{error.message || "Please try refreshing the page."}</p>
         </div>
       </div>
     );

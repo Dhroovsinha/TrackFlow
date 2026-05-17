@@ -14,6 +14,15 @@ export async function GET(req: NextRequest) {
     const role = user.role;
     const userId = user.id;
 
+    // Verify user exists in the database (handles post-seed stale JWT cookies)
+    const dbUser = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!dbUser) {
+      return NextResponse.json({ error: "User not found. Please log out and back in." }, { status: 401 });
+    }
+
     // Get active cycle
     const activeCycle = await prisma.quarterlyCycle.findFirst({
       where: { isActive: true },
