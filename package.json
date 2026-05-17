@@ -10,7 +10,7 @@
     "db:generate": "npx prisma generate",
     "db:push": "npx prisma db push",
     "db:migrate": "npx prisma migrate dev",
-    "db:seed": "npx tsx prisma/seed.ts",
+    "db:seed": "npx prisma db seed",
     "db:studio": "npx prisma studio",
     "db:reset": "npx prisma db push --force-reset && npx tsx prisma/seed.ts",
     "setup": "npx prisma generate && npx prisma db push && npx tsx prisma/seed.ts",
@@ -19,7 +19,7 @@
     "postinstall": "prisma generate"
   },
   "prisma": {
-    "seed": "npx tsx prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.0.0",

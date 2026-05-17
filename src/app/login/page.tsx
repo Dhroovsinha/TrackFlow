@@ -11,9 +11,9 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/toast";
 
 const demoAccounts = [
-  { email: "priya.sharma@trackflow.com", password: "demo123", role: "Employee", name: "Priya Sharma" },
-  { email: "rajesh.kumar@trackflow.com", password: "demo123", role: "Manager", name: "Rajesh Kumar" },
-  { email: "admin@trackflow.com", password: "admin123", role: "Admin", name: "Ananya Patel" },
+  { email: "priya.sharma@atomquest.com", password: "demo123", role: "Employee", name: "Priya Sharma" },
+  { email: "rajesh.kumar@atomquest.com", password: "demo123", role: "Manager", name: "Rajesh Kumar" },
+  { email: "admin@atomquest.com", password: "admin123", role: "Admin", name: "Ananya Patel" },
 ];
 
 export default function LoginPage() {
