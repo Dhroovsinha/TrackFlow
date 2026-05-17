@@ -174,17 +174,6 @@ async function main() {
         },
       });
 
-      // Approval History (Only if not SUBMITTED, since SUBMITTED is pending)
-      if (sheetStatus !== "SUBMITTED") {
-        await prisma.approvalHistory.create({
-          data: {
-            reviewerId: emp.managerId!,
-            action: sheetStatus === "APPROVED" ? "APPROVED" : "RETURNED",
-            comments: sheetStatus === "RETURNED" ? "Needs more ambitious targets." : "Looks good.",
-          },
-        });
-      }
-
       // Goals
       const goalsList = isPriya ? [
         { thrustArea: "Innovation", title: "Implement CI/CD Pipeline", uom: "PERCENTAGE", target: 100, weight: 30, status: "COMPLETED", ach: 100, sharedId: null },
@@ -211,6 +200,18 @@ async function main() {
             sharedGoalId: gData.sharedId,
           },
         });
+
+        // Approval History (Only if not SUBMITTED, since SUBMITTED is pending)
+        if (sheetStatus !== "SUBMITTED") {
+          await prisma.approvalHistory.create({
+            data: {
+              goalId: goal.id,
+              reviewerId: emp.managerId!,
+              action: sheetStatus === "APPROVED" ? "APPROVED" : "RETURNED",
+              comments: sheetStatus === "RETURNED" ? "Needs more ambitious targets." : "Looks good.",
+            },
+          });
+        }
 
         // Updates
         if (gData.ach > 0 || gData.status === "COMPLETED") {
