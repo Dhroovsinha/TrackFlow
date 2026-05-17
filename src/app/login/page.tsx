@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Target, Eye, EyeOff, ArrowRight, Sparkles } from "lucide-react";
@@ -29,6 +29,9 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      // Forceful signout to ensure clean credentials callback
+      await signOut({ redirect: false }).catch(() => {});
+
       const result = await signIn("credentials", {
         email,
         password,
@@ -67,6 +70,9 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      // Forceful signout to ensure clean credentials callback
+      await signOut({ redirect: false }).catch(() => {});
+
       const result = await signIn("credentials", {
         email: account.email,
         password: account.password,
