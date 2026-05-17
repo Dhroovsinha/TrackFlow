@@ -31,7 +31,12 @@ async function main() {
   // 2. Upsert Admin
   const admin = await prisma.user.upsert({
     where: { email: "admin@atomquest.com" },
-    update: {},
+    update: {
+      password: hash("admin123"),
+      role: "ADMIN",
+      departmentId: depts["HR"].id,
+      isActive: true,
+    },
     create: {
       name: "Ananya Patel",
       email: "admin@atomquest.com",
@@ -54,7 +59,12 @@ async function main() {
   for (const m of managersData) {
     managers[m.email] = await prisma.user.upsert({
       where: { email: m.email },
-      update: {},
+      update: {
+        password: hash("demo123"),
+        role: "MANAGER",
+        departmentId: depts[m.dept].id,
+        isActive: true,
+      },
       create: {
         name: m.name,
         email: m.email,
@@ -83,7 +93,13 @@ async function main() {
   for (const e of employeesData) {
     const emp = await prisma.user.upsert({
       where: { email: e.email },
-      update: {},
+      update: {
+        password: hash("demo123"),
+        role: "EMPLOYEE",
+        departmentId: depts[e.dept].id,
+        managerId: managers[e.mgr].id,
+        isActive: true,
+      },
       create: {
         name: e.name,
         email: e.email,
