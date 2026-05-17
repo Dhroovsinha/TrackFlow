@@ -15,7 +15,8 @@
     "db:reset": "npx prisma db push --force-reset && npx tsx prisma/seed.ts",
     "setup": "npx prisma generate && npx prisma db push && npx tsx prisma/seed.ts",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "postinstall": "prisma generate"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
@@ -44,12 +45,12 @@
     "date-fns": "^4.1.0",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.16.0",
-    "next": "16.2.6",
+    "next": "15.3.3",
     "next-auth": "^5.0.0-beta.31",
     "next-themes": "^0.4.6",
     "prisma": "^6.0.0",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "recharts": "^3.8.1",
     "tailwind-merge": "^3.6.0",
     "xlsx": "^0.18.5",
@@ -66,7 +67,7 @@
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6.0.2",
     "eslint": "^9",
-    "eslint-config-next": "16.2.6",
+    "eslint-config-next": "15.3.3",
     "jsdom": "^29.1.1",
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",

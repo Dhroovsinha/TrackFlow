@@ -52,7 +52,15 @@ export default function DashboardPage() {
     );
   }
 
-  if (role === "MANAGER") return <ManagerDashboard data={data} userName={session?.user?.name || ""} />;
+  if (!session || !data) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-muted-foreground animate-pulse">Initializing dashboard...</p>
+      </div>
+    );
+  }
+
+  if (role === "MANAGER") return <ManagerDashboard data={data} userName={session.user?.name || ""} />;
   if (role === "ADMIN") return <AdminDashboard data={data} />;
-  return <EmployeeDashboard data={data} userName={session?.user?.name || ""} />;
+  return <EmployeeDashboard data={data} userName={session.user?.name || ""} />;
 }
