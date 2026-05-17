@@ -34,9 +34,9 @@ Open [http://localhost:3000](http://localhost:3000) to see the application.
 
 | Role | Email | Password |
 |------|-------|----------|
-| **Employee** | priya.sharma@atomquest.com | demo123 |
-| **Manager** | rajesh.kumar@atomquest.com | demo123 |
-| **Admin** | admin@atomquest.com | admin123 |
+| **Employee** | priya.sharma@trackflow.com | demo123 |
+| **Manager** | rajesh.kumar@trackflow.com | demo123 |
+| **Admin** | admin@trackflow.com | admin123 |
 
 ##  Features
 

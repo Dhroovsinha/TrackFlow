@@ -31,7 +31,7 @@ export default function ReportsPage() {
     const blob = new Blob([csv], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url; a.download = "atomquest-report.csv"; a.click();
+    a.href = url; a.download = "trackflow-report.csv"; a.click();
     URL.revokeObjectURL(url);
     toast({ title: "Report Downloaded", description: "CSV file exported successfully", type: "success" });
   };
@@ -42,7 +42,7 @@ export default function ReportsPage() {
       const ws = XLSX.utils.json_to_sheet(reportData);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, "Goals Report");
-      XLSX.writeFile(wb, "atomquest-report.xlsx");
+      XLSX.writeFile(wb, "trackflow-report.xlsx");
       toast({ title: "Report Downloaded", description: "Excel file exported successfully", type: "success" });
     } catch {
       toast({ title: "Export Failed", description: "Could not generate Excel file", type: "error" });

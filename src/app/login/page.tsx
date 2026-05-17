@@ -11,9 +11,9 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/toast";
 
 const demoAccounts = [
-  { email: "priya.sharma@atomquest.com", password: "demo123", role: "Employee", name: "Priya Sharma" },
-  { email: "rajesh.kumar@atomquest.com", password: "demo123", role: "Manager", name: "Rajesh Kumar" },
-  { email: "admin@atomquest.com", password: "admin123", role: "Admin", name: "Ananya Patel" },
+  { email: "priya.sharma@trackflow.com", password: "demo123", role: "Employee", name: "Priya Sharma" },
+  { email: "rajesh.kumar@trackflow.com", password: "demo123", role: "Manager", name: "Rajesh Kumar" },
+  { email: "admin@trackflow.com", password: "admin123", role: "Admin", name: "Ananya Patel" },
 ];
 
 export default function LoginPage() {
@@ -118,7 +118,7 @@ export default function LoginPage() {
               <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Target className="w-7 h-7" />
               </div>
-              <span className="text-2xl font-bold">AtomQuest</span>
+              <span className="text-2xl font-bold">TrackFlow</span>
             </div>
             <h1 className="text-5xl font-bold leading-tight mb-6">
               Set Goals.<br />
@@ -163,7 +163,7 @@ export default function LoginPage() {
             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
               <Target className="w-6 h-6 text-primary" />
             </div>
-            <span className="text-xl font-bold">AtomQuest</span>
+            <span className="text-xl font-bold">TrackFlow</span>
           </div>
 
           <h2 className="text-3xl font-bold mb-2">Welcome back</h2>

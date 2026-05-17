@@ -1,6 +1,6 @@
-# AtomQuest Architecture & System Design
+# TrackFlow Architecture & System Design
 
-This document contains the enterprise system architecture diagrams for the AtomQuest platform, detailing the high-level architecture, database schema, authentication flows, and core workflows.
+This document contains the enterprise system architecture diagrams for the TrackFlow platform, detailing the high-level architecture, database schema, authentication flows, and core workflows.
 
 ## 1. High-Level System Architecture
 

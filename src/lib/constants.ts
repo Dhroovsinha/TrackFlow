@@ -1,4 +1,4 @@
-export const APP_NAME = "AtomQuest";
+export const APP_NAME = "TrackFlow";
 export const APP_DESCRIPTION = "Enterprise Goal Setting & Tracking Portal";
 
 // Role labels

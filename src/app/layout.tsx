@@ -12,7 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AtomQuest — Goal Setting & Tracking Portal",
+  title: "TrackFlow — Goal Setting & Tracking Portal",
   description: "Enterprise-grade goal setting, tracking, and performance management platform with role-based workflows, quarterly reviews, and comprehensive analytics.",
   keywords: ["goal setting", "performance management", "OKR", "KPI", "enterprise"],
 };

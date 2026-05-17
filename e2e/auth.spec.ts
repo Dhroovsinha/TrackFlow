@@ -10,7 +10,7 @@ test.describe('Authentication and RBAC Workflow', () => {
     await page.goto('/login');
     
     // Fill login form
-    await page.fill('input[type="email"]', 'priya.sharma@atomquest.com');
+    await page.fill('input[type="email"]', 'priya.sharma@trackflow.com');
     await page.fill('input[type="password"]', 'demo123');
     await page.click('button[type="submit"]');
 

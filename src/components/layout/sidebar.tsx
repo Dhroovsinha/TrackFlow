@@ -81,7 +81,7 @@ export function Sidebar({ collapsed, onToggle, mobileOpen, onMobileClose, curren
                 animate={{ opacity: 1 }}
                 className="font-bold text-lg gradient-text"
               >
-                AtomQuest
+                TrackFlow
               </motion.span>
             )}
           </Link>

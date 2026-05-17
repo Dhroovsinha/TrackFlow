@@ -40,7 +40,7 @@ async function main() {
   const admin = await prisma.user.create({
     data: {
       name: "Ananya Patel",
-      email: "admin@atomquest.com",
+      email: "admin@trackflow.com",
       password: hash("admin123"),
       role: "ADMIN",
       departmentId: departments[3].id,
@@ -49,25 +49,25 @@ async function main() {
 
   // Create managers
   const managers = await Promise.all([
-    prisma.user.create({ data: { name: "Rajesh Kumar", email: "rajesh.kumar@atomquest.com", password: hash("demo123"), role: "MANAGER", departmentId: departments[0].id } }),
-    prisma.user.create({ data: { name: "Meera Nair", email: "meera.nair@atomquest.com", password: hash("demo123"), role: "MANAGER", departmentId: departments[1].id } }),
-    prisma.user.create({ data: { name: "Vikram Singh", email: "vikram.singh@atomquest.com", password: hash("demo123"), role: "MANAGER", departmentId: departments[2].id } }),
-    prisma.user.create({ data: { name: "Deepa Menon", email: "deepa.menon@atomquest.com", password: hash("demo123"), role: "MANAGER", departmentId: departments[4].id } }),
+    prisma.user.create({ data: { name: "Rajesh Kumar", email: "rajesh.kumar@trackflow.com", password: hash("demo123"), role: "MANAGER", departmentId: departments[0].id } }),
+    prisma.user.create({ data: { name: "Meera Nair", email: "meera.nair@trackflow.com", password: hash("demo123"), role: "MANAGER", departmentId: departments[1].id } }),
+    prisma.user.create({ data: { name: "Vikram Singh", email: "vikram.singh@trackflow.com", password: hash("demo123"), role: "MANAGER", departmentId: departments[2].id } }),
+    prisma.user.create({ data: { name: "Deepa Menon", email: "deepa.menon@trackflow.com", password: hash("demo123"), role: "MANAGER", departmentId: departments[4].id } }),
   ]);
   console.log("✓ Created managers");
 
   // Create employees
   const employees = await Promise.all([
-    prisma.user.create({ data: { name: "Priya Sharma", email: "priya.sharma@atomquest.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[0].id, managerId: managers[0].id } }),
-    prisma.user.create({ data: { name: "Arjun Reddy", email: "arjun.reddy@atomquest.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[0].id, managerId: managers[0].id } }),
-    prisma.user.create({ data: { name: "Kavita Joshi", email: "kavita.joshi@atomquest.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[0].id, managerId: managers[0].id } }),
-    prisma.user.create({ data: { name: "Rahul Gupta", email: "rahul.gupta@atomquest.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[1].id, managerId: managers[1].id } }),
-    prisma.user.create({ data: { name: "Sneha Iyer", email: "sneha.iyer@atomquest.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[1].id, managerId: managers[1].id } }),
-    prisma.user.create({ data: { name: "Aditya Verma", email: "aditya.verma@atomquest.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[2].id, managerId: managers[2].id } }),
-    prisma.user.create({ data: { name: "Pooja Mishra", email: "pooja.mishra@atomquest.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[2].id, managerId: managers[2].id } }),
-    prisma.user.create({ data: { name: "Siddharth Das", email: "sid.das@atomquest.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[4].id, managerId: managers[3].id } }),
-    prisma.user.create({ data: { name: "Nisha Kaur", email: "nisha.kaur@atomquest.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[5].id, managerId: managers[0].id } }),
-    prisma.user.create({ data: { name: "Rohan Mehta", email: "rohan.mehta@atomquest.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[0].id, managerId: managers[0].id } }),
+    prisma.user.create({ data: { name: "Priya Sharma", email: "priya.sharma@trackflow.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[0].id, managerId: managers[0].id } }),
+    prisma.user.create({ data: { name: "Arjun Reddy", email: "arjun.reddy@trackflow.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[0].id, managerId: managers[0].id } }),
+    prisma.user.create({ data: { name: "Kavita Joshi", email: "kavita.joshi@trackflow.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[0].id, managerId: managers[0].id } }),
+    prisma.user.create({ data: { name: "Rahul Gupta", email: "rahul.gupta@trackflow.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[1].id, managerId: managers[1].id } }),
+    prisma.user.create({ data: { name: "Sneha Iyer", email: "sneha.iyer@trackflow.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[1].id, managerId: managers[1].id } }),
+    prisma.user.create({ data: { name: "Aditya Verma", email: "aditya.verma@trackflow.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[2].id, managerId: managers[2].id } }),
+    prisma.user.create({ data: { name: "Pooja Mishra", email: "pooja.mishra@trackflow.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[2].id, managerId: managers[2].id } }),
+    prisma.user.create({ data: { name: "Siddharth Das", email: "sid.das@trackflow.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[4].id, managerId: managers[3].id } }),
+    prisma.user.create({ data: { name: "Nisha Kaur", email: "nisha.kaur@trackflow.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[5].id, managerId: managers[0].id } }),
+    prisma.user.create({ data: { name: "Rohan Mehta", email: "rohan.mehta@trackflow.com", password: hash("demo123"), role: "EMPLOYEE", departmentId: departments[0].id, managerId: managers[0].id } }),
   ]);
   console.log("✓ Created employees");
 
@@ -242,9 +242,9 @@ async function main() {
   console.log("✓ Created comments");
 
   console.log("\n✅ Seed complete! Demo accounts:");
-  console.log("  Employee: priya.sharma@atomquest.com / demo123");
-  console.log("  Manager:  rajesh.kumar@atomquest.com / demo123");
-  console.log("  Admin:    admin@atomquest.com / admin123");
+  console.log("  Employee: priya.sharma@trackflow.com / demo123");
+  console.log("  Manager:  rajesh.kumar@trackflow.com / demo123");
+  console.log("  Admin:    admin@trackflow.com / admin123");
 }
 
 main()
