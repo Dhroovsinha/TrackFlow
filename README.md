@@ -10,7 +10,7 @@ Built for organizations where employees create goals, managers approve them, and
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ```bash
 # 1. Install dependencies
@@ -25,7 +25,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to see the application.
 
-## 🔐 Demo Accounts
+##  Demo Accounts
 
 | Role | Email | Password |
 |------|-------|----------|
@@ -33,7 +33,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the application.
 | **Manager** | rajesh.kumar@atomquest.com | demo123 |
 | **Admin** | admin@atomquest.com | admin123 |
 
-## ✨ Features
+##  Features
 
 ### Goal Lifecycle Management
 - ✅ Goal Sheet creation with thrust areas, UoM, targets, weightages
@@ -86,7 +86,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the application.
 | Validation | Zod |
 | Export | xlsx |
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 src/
@@ -111,7 +111,7 @@ src/
 └── types/                    # TypeScript types
 ```
 
-## 🗄 Database Commands
+##  Database Commands
 
 ```bash
 npm run db:generate   # Generate Prisma client
@@ -122,7 +122,7 @@ npm run db:reset      # Reset and re-seed
 npm run setup         # Full setup (generate + push + seed)
 ```
 
-## 🌐 Environment Variables
+##  Environment Variables
 
 Copy `.env.example` to `.env` and configure:
 
@@ -132,7 +132,7 @@ AUTH_SECRET="your-secret-key"
 NEXTAUTH_URL="http://localhost:3000"
 ```
 
-## 📊 Demo Data
+##  Demo Data
 
 The seed script creates:
 - **6 departments**: Engineering, Product, Marketing, HR, Finance, Sales
@@ -142,7 +142,7 @@ The seed script creates:
 - **14 audit log entries**
 - **3 manager check-in comments**
 
-## 🎯 Demo Flow
+##  Demo Flow
 
 1. **Employee** (Priya Sharma) → Views dashboard → Creates/edits goals
 2. **Manager** (Rajesh Kumar) → Reviews pending approvals → Approves/rejects
@@ -150,11 +150,11 @@ The seed script creates:
 4. **Manager** → Views team progress → Adds check-in comments
 5. **Admin** (Ananya Patel) → Views org analytics → Manages cycles → Reviews audit logs
 
-## 📱 Responsive Design
+##  Responsive Design
 
 Fully responsive across desktop, tablet, and mobile devices. Collapsible sidebar with mobile drawer support.
 
-## 🔒 Security
+## Security
 
 - Password hashing with bcrypt
 - JWT-based session management
@@ -164,4 +164,4 @@ Fully responsive across desktop, tablet, and mobile devices. Collapsible sidebar
 
 ---
 
-Built with ❤️ for AtomQuest Hackathon
+
