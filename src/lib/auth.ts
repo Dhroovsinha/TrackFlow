@@ -1,8 +1,13 @@
 import NextAuth from "next-auth";
+import { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
 import { authConfig } from "./auth.config";
+
+class AuthServiceUnavailable extends CredentialsSignin {
+  code = "auth_service_unavailable";
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -19,10 +24,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           return null;
         }
 
-        const user = await prisma.user.findUnique({
-          where: { email: (credentials.email as string).toLowerCase().trim() },
-          include: { department: true },
-        });
+        let user;
+        try {
+          user = await prisma.user.findUnique({
+            where: { email: (credentials.email as string).toLowerCase().trim() },
+            include: { department: true },
+          });
+        } catch (error) {
+          console.error("Credential login database lookup failed:", error);
+          throw new AuthServiceUnavailable();
+        }
 
         if (!user || !user.isActive) {
           return null;

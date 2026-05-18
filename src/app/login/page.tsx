@@ -16,7 +16,11 @@ const demoAccounts = [
   { email: "admin@atomquest.com", password: "admin123", role: "Admin", name: "Ananya Patel" },
 ];
 
-function getLoginErrorMessage(error?: string) {
+function getLoginErrorMessage(error?: string, code?: string) {
+  if (code === "auth_service_unavailable") {
+    return "Production auth cannot reach the database. Check Vercel DATABASE_URL and DIRECT_URL.";
+  }
+
   if (error === "Configuration") {
     return "Production auth is misconfigured. Check Vercel AUTH_SECRET, DATABASE_URL, and NEXTAUTH_URL.";
   }
@@ -49,7 +53,7 @@ export default function LoginPage() {
       if (result?.error) {
         toast({
           title: "Login Failed",
-          description: getLoginErrorMessage(result.error),
+          description: getLoginErrorMessage(result.error, result.code),
           type: "error",
         });
       } else {
@@ -91,9 +95,9 @@ export default function LoginPage() {
         toast({
           title: "Login Failed",
           description:
-            result.error === "CredentialsSignin"
+            result.error === "CredentialsSignin" && result.code !== "auth_service_unavailable"
               ? "Demo account not found. Run the seed script first: npm run db:seed"
-              : getLoginErrorMessage(result.error),
+              : getLoginErrorMessage(result.error, result.code),
           type: "error",
         });
       } else {
