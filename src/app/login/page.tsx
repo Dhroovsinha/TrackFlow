@@ -16,6 +16,14 @@ const demoAccounts = [
   { email: "admin@atomquest.com", password: "admin123", role: "Admin", name: "Ananya Patel" },
 ];
 
+function getLoginErrorMessage(error?: string) {
+  if (error === "Configuration") {
+    return "Production auth is misconfigured. Check Vercel AUTH_SECRET, DATABASE_URL, and NEXTAUTH_URL.";
+  }
+
+  return "Invalid email or password. Try a demo account below.";
+}
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +49,7 @@ export default function LoginPage() {
       if (result?.error) {
         toast({
           title: "Login Failed",
-          description: "Invalid email or password. Try a demo account below.",
+          description: getLoginErrorMessage(result.error),
           type: "error",
         });
       } else {
@@ -82,7 +90,10 @@ export default function LoginPage() {
       if (result?.error) {
         toast({
           title: "Login Failed",
-          description: "Please run the seed script first: npm run db:seed",
+          description:
+            result.error === "CredentialsSignin"
+              ? "Demo account not found. Run the seed script first: npm run db:seed"
+              : getLoginErrorMessage(result.error),
           type: "error",
         });
       } else {
